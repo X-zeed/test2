@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        th, td, tbody, caption {
+            border: 1px solid #58d018;
+            border-collapse: collapse;
+            padding: 0.5rem;
+        }
+    </style>
+    <title>spectrophotometer</title>
+</head>
+<body>
+    <h1>Data Table</h1>
+
+    <table>
+        <tr>
+            <th>ID-1</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Red</th>
+            <th>Green</th>
+            <th>Blue</th>
+        </tr>
+        <tbody id="dataBody">
+        </tbody>
+    </table>
+
+    <script>
+        async function loadData() {
+            const url = 'https://api.sheety.co/2a2edb32246966ec3fcd0f1adf2db8d0/spectrophotometer/data1';
+            const response = await fetch(url);
+            const data = await response.json();
+            let dataBody = document.getElementById("dataBody");
+
+            data.data1.forEach(element => {
+                const { id, date, time, red, green, blue } = element;
+                let newRow =
+                    `
+                    <tr>
+                        <td>${id}</td>
+                        <td>${date}</td>
+                        <td>${time}</td>
+                        <td>${red}</td>
+                        <td>${green}</td>
+                        <td>${blue}</td>
+                    </tr>
+                    `;
+                dataBody.innerHTML += newRow;
+            });
+        }
+
+        loadData();
+    </script>
+</body>
+</html>
